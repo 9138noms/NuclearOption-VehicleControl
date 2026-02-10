@@ -63,7 +63,7 @@ Take direct WASD control of friendly ships and ground vehicles. Jump out of your
 - Press **C** again or **S** to disengage
 
 ### Configurable Keybind
-- The possess key can be changed in `BepInEx/config/com.yuulf.vehiclecontrol.cfg`
+- The possess key can be changed in `BepInEx/config/com.noms.vehiclecontrol.cfg`
 - Default: F8
 
 ## Tips

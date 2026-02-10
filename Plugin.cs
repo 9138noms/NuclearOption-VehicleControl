@@ -7,7 +7,7 @@ using VehicleControl.Patches;
 
 namespace VehicleControl
 {
-    [BepInPlugin("com.yuulf.vehiclecontrol", "Vehicle Control", "1.3.0")]
+    [BepInPlugin("com.noms.vehiclecontrol", "Vehicle Control", "1.3.0")]
     public class Plugin : BaseUnityPlugin
     {
         internal static ManualLogSource Log;
@@ -26,7 +26,7 @@ namespace VehicleControl
 
             possessKey = Config.Bind("Controls", "PossessKey", KeyCode.F8, "Key to possess/unpossess nearest vehicle");
 
-            harmony = new Harmony("com.yuulf.vehiclecontrol");
+            harmony = new Harmony("com.noms.vehiclecontrol");
             harmony.PatchAll();
 
             // Manual patch: suppress WASD camera movement during possession
