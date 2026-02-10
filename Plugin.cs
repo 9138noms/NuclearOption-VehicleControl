@@ -1,4 +1,5 @@
 using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 using UnityEngine;
@@ -6,7 +7,7 @@ using VehicleControl.Patches;
 
 namespace VehicleControl
 {
-    [BepInPlugin("com.yuulf.vehiclecontrol", "Vehicle Control", "1.2.0")]
+    [BepInPlugin("com.yuulf.vehiclecontrol", "Vehicle Control", "1.3.0")]
     public class Plugin : BaseUnityPlugin
     {
         internal static ManualLogSource Log;
@@ -17,9 +18,13 @@ namespace VehicleControl
         private TargetManager targetManager;
         private VehicleHUD hud;
 
+        private ConfigEntry<KeyCode> possessKey;
+
         private void Awake()
         {
             Log = Logger;
+
+            possessKey = Config.Bind("Controls", "PossessKey", KeyCode.F8, "Key to possess/unpossess nearest vehicle");
 
             harmony = new Harmony("com.yuulf.vehiclecontrol");
             harmony.PatchAll();
@@ -32,13 +37,12 @@ namespace VehicleControl
             targetManager = new TargetManager();
             hud = new VehicleHUD();
 
-            Log.LogInfo("Vehicle Control v1.2.0 loaded — F8 to possess nearest ship/vehicle");
+            Log.LogInfo($"Vehicle Control v1.3.0 loaded — {possessKey.Value} to possess nearest ship/vehicle");
         }
 
         private void Update()
         {
-            // F8: toggle possession
-            if (Input.GetKeyDown(KeyCode.F8))
+            if (Input.GetKeyDown(possessKey.Value))
             {
                 possessionManager.TogglePossession();
                 if (!possessionManager.IsPossessing)

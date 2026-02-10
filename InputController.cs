@@ -9,6 +9,7 @@ namespace VehicleControl
         private float currentThrottle = 0f;
         private float currentSteering = 0f;
         private float currentBrake = 0f;
+        private bool cruiseControl = false;
 
         private const float THROTTLE_SPEED = 1.5f;
         private const float STEER_SPEED = 3f;
@@ -16,6 +17,7 @@ namespace VehicleControl
 
         public float Throttle => currentThrottle;
         public float Steering => currentSteering;
+        public bool CruiseControl => cruiseControl;
 
         public void Update(PossessionManager pm)
         {
@@ -35,14 +37,20 @@ namespace VehicleControl
             }
             else
             {
-                // Vehicle: W/S with decay on release
+                // Vehicle: W/S with decay on release (unless cruise control)
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    cruiseControl = !cruiseControl;
+                    Plugin.Log.LogInfo($"Cruise control: {(cruiseControl ? "ON" : "OFF")}");
+                }
+
                 float throttleInput = 0f;
                 if (Input.GetKey(KeyCode.W)) throttleInput = 1f;
-                else if (Input.GetKey(KeyCode.S)) throttleInput = -1f;
+                else if (Input.GetKey(KeyCode.S)) { throttleInput = -1f; cruiseControl = false; }
 
                 if (throttleInput != 0f)
                     currentThrottle = Mathf.MoveTowards(currentThrottle, throttleInput, THROTTLE_SPEED * Time.deltaTime);
-                else
+                else if (!cruiseControl)
                     currentThrottle = Mathf.MoveTowards(currentThrottle, 0f, DECAY_SPEED * Time.deltaTime);
             }
 
@@ -80,6 +88,7 @@ namespace VehicleControl
             currentThrottle = 0f;
             currentSteering = 0f;
             currentBrake = 0f;
+            cruiseControl = false;
         }
     }
 }

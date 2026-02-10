@@ -20,10 +20,11 @@ Take direct WASD control of friendly ships and ground vehicles. Jump out of your
 
 | Key | Function |
 |-----|----------|
-| `F8` | Possess / unpossess nearest friendly unit |
+| `F8` | Possess / unpossess nearest friendly unit (configurable) |
 | `W` / `S` | Throttle forward / reverse |
 | `A` / `D` | Steer left / right |
 | `Space` | Brake (vehicles) / All stop (ships) |
+| `C` | Toggle cruise control (vehicles only) |
 | `Tab` | Cycle through enemy targets |
 | `T` | Clear target (return to AI auto-targeting) |
 
@@ -56,6 +57,19 @@ Take direct WASD control of friendly ships and ground vehicles. Jump out of your
 - Current target info (name, distance)
 - Unit name and health status
 - Control hints
+
+### Cruise Control (Vehicles)
+- Press **C** to lock the current throttle — the vehicle maintains speed without holding W
+- Press **C** again or **S** to disengage
+
+### Configurable Keybind
+- The possess key can be changed in `BepInEx/config/com.yuulf.vehiclecontrol.cfg`
+- Default: F8
+
+## Tips
+
+- **Ground vehicles in Hold Position won't move.** Give them a movement order (waypoint) first, then possess them while they're moving.
+- You can possess from spectator/free camera — you don't have to be flying.
 
 ## Notes
 
